@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+
+# datasets
+*.csv
+processed_data/
+real_vs_fake/
+
+# model files
+*.pth
+*.pt
+*.h5
