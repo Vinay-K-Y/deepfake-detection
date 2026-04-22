@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DeepTrust - Deepfake Detector</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🧠 DeepTrust</h1>
+    <p>Upload an image to detect if it's REAL or FAKE</p>
+
+    <input type="file" id="imageInput" accept="image/*">
+    
+    <div class="preview">
+        <img id="previewImage" src="" alt="Preview">
+    </div>
+
+    <button onclick="uploadImage()">Check Image</button>
+
+    <div id="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

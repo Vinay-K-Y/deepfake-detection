@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+.git/
+venv/
+
+# 🚨 REMOVE DATASETS
+real_vs_fake/
+processed_data/
+*.mp4
+*.avi
+*.zip
+*.jpg
+*.png
+
+# OPTIONAL large files
+*.csv
+
+# KEEP ONLY THIS
+!saved_models/
