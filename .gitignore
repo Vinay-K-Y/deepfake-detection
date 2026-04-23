@@ -1,3 +1,4 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
@@ -7,3 +8,10 @@ __pycache__/
 processed_data/
 real_vs_fake/
 
+# Node / Hardhat (BLOCKCHAIN)
+node_modules/
+artifacts/
+cache/
+typechain/
+coverage/
+.env
