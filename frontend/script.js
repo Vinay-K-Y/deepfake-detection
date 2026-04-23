@@ -1,8 +1,10 @@
-const API_URL = "http://127.0.0.1:8000/predict";
+const API_URL = "http://127.0.0.1:8000/verify";
 
 const input = document.getElementById("imageInput");
 const preview = document.getElementById("previewImage");
+const resultDiv = document.getElementById("result");
 
+// Show preview
 input.addEventListener("change", () => {
     const file = input.files[0];
     if (file) {
@@ -11,8 +13,10 @@ input.addEventListener("change", () => {
     }
 });
 
+// Upload + Predict
 async function uploadImage() {
     const file = input.files[0];
+
     if (!file) {
         alert("Please select an image");
         return;
@@ -21,7 +25,7 @@ async function uploadImage() {
     const formData = new FormData();
     formData.append("file", file);
 
-    document.getElementById("result").innerText = "⏳ Processing...";
+    resultDiv.innerText = "⏳ Processing...";
 
     try {
         const response = await fetch(API_URL, {
@@ -29,16 +33,29 @@ async function uploadImage() {
             body: formData
         });
 
+        // Handle HTTP errors
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
         const data = await response.json();
 
-        document.getElementById("result").innerHTML = `
-            Prediction: <span style="color:${data.prediction === "FAKE" ? "red" : "lightgreen"}">
-                ${data.prediction}
+        // Handle backend errors (like no face detected)
+        if (data.error) {
+            resultDiv.innerText = `⚠️ ${data.error}`;
+            return;
+        }
+
+        // Display result (FIXED KEYS)
+        resultDiv.innerHTML = `
+            Prediction: <span style="color:${data.verdict === "FAKE" ? "red" : "lightgreen"}">
+                ${data.verdict}
             </span><br>
-            Confidence: ${(data.confidence * 100).toFixed(2)}%
+            Confidence: ${data.confidence}
         `;
+
     } catch (error) {
-        document.getElementById("result").innerText = "❌ Error connecting to API";
-        console.error(error);
+        resultDiv.innerText = "❌ Error processing request";
+        console.error("Error:", error);
     }
 }
